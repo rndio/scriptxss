@@ -1,28 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
   function getCookie(cookieName) {
-    const cookies = document.cookie; // Get all cookies in one string
-
-    // Split the cookies string into individual cookies
+    const cookies = document.cookie;
     const cookieArray = cookies.split(';');
-
-    // Loop through the cookieArray to find the cookie with the specified name
     for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i].trim();
-
-        // Check if this cookie is the one we're looking for
         if (cookie.startsWith(cookieName + '=')) {
-            // Return the cookie value (remove the cookie name)
-            return cookie.substring(cookieName.length + 1);
+          return cookie.substring(cookieName.length + 1);
         }
     }
-
-    // If cookie not found, return null
     return null;
-}
+  }
   const statusXSS = getCookie('statusXSS');
-  const htmlPage = `<!DOCTYPE html>
+  const htmlPage = `
+  <!DOCTYPE html>
   <html>
-  
   <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -140,6 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
   `;
 
   if (statusXSS == null) {
-    document.write(htmlPage);
+    document.body.innerHTML = htmlPage;
   }
 });
